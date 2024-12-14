@@ -1,0 +1,84 @@
+body {
+    background-color: #f7f7e1;  
+    font-family: 'Arial', sans-serif;  
+    color: #7c9e00;  
+    margin: 0;  
+    padding: 0;  
+}
+
+.header {
+    background-color: #4ad713;  
+    padding: 20px;  
+    text-align: center;  
+    color: white;  
+}
+
+.header h1 {
+    font-family: 'Verdana', sans-serif;  
+    font-size: 36px;  
+}
+
+
+nav ul {
+    list-style-type: none;  
+    padding: 0;  
+}
+
+nav ul li {
+    display: inline;  
+    margin-right: 15px;  
+}
+
+nav ul li a {
+    color: white;  
+    text-decoration: none;  
+    font-size: 18px;  
+}
+
+nav ul li a:hover {
+    text-decoration: underline;  
+}
+
+.section {
+    padding: 20px;  
+    margin: 20px;  
+    border-radius: 10px;  
+    background-color: #ffffff;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+}
+
+#pie-recipe {
+    background-color: #f9f5d1;  
+}
+
+#video-section {
+    background-color: #f4f4f9;  
+}
+
+#data-visualization {
+    background-color: #f0f8ff;  
+}
+
+.pie-photo {
+    width: 100%; 
+    max-width: 300px;  
+    height: 400px;  
+    display: block;  
+    margin: 20px auto;  
+}
+
+.footer {
+    background-color: #333;  
+    color: white;  
+    text-align: center;  
+    padding: 10px;  
+}
+
+.footer a {
+    color: #00ff1e;  
+    text-decoration: none;  
+}
+
+.footer a:hover {
+    text-decoration: underline;  
+}

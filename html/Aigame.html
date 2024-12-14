@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wordle Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #699be6;
+        }
+        .game-container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(5, 60px);
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tile {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ddd;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+        }
+        .tile.correct {
+            background-color: green;
+            color: white;
+        }
+        .tile.present {
+            background-color: rgb(150, 150, 29);
+            color: white;
+        }
+        .tile.absent {
+            background-color: gray;
+            color: white;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .link {
+            align-items: normal;
+            color: rgb(18, 102, 10) !important;
+
+        }
+    </style>
+</head>
+<body>
+<div class="link"> <a href="scratch.html">Go back to Scratch</a></div>
+<div class="game-container">
+    <h1>Wordle Clone</h1>
+    <div class="board" id="board">
+        <!-- Game board will be generated here -->
+    </div>
+    <input type="text" id="guessInput" maxlength="5" placeholder="Enter guess">
+    <button onclick="submitGuess()">Submit Guess</button>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    // Wordle game logic
+    const correctWord = "APPLE";  // The target word to guess
+    const maxGuesses = 6;
+    let guessesLeft = 6;
+    let currentGuess = 0;
+
+    // Initialize board
+    const board = document.getElementById("board");
+
+    function createBoard() {
+        for (let i = 0; i < maxGuesses; i++) {
+            const row = [];
+            for (let j = 0; j < 5; j++) {
+                const tile = document.createElement("div");
+                tile.classList.add("tile");
+                row.push(tile);
+                board.appendChild(tile);
+            }
+        }
+    }
+
+    createBoard();
+
+    // Function to submit a guess
+    function submitGuess() {
+        const guessInput = document.getElementById("guessInput");
+        const guess = guessInput.value.toUpperCase();
+
+        // Ensure the guess is valid (5 characters)
+        if (guess.length !== 5 || !/^[A-Z]+$/.test(guess)) {
+            alert("Please enter a valid 5-letter word.");
+            return;
+        }
+
+        if (guessesLeft === 0) {
+            alert("Game over! The correct word was: " + correctWord);
+            return;
+        }
+
+        // Display guess on the board
+        for (let i = 0; i < 5; i++) {
+            const tile = board.children[currentGuess * 5 + i];
+            tile.textContent = guess[i];
+            tile.classList.remove("correct", "present", "absent");
+
+            // Check if letter is correct, present, or absent
+            if (guess[i] === correctWord[i]) {
+                tile.classList.add("correct");
+            } else if (correctWord.includes(guess[i])) {
+                tile.classList.add("present");
+            } else {
+                tile.classList.add("absent");
+            }
+        }
+
+        // Update guesses left
+        guessesLeft--;
+        currentGuess++;
+
+        if (guess === correctWord) {
+            document.getElementById("message").textContent = "You guessed the word! Congratulations!";
+            document.getElementById("guessInput").disabled = true;
+            return;
+        }
+
+        if (guessesLeft === 0) {
+            document.getElementById("message").textContent = "Game over! The correct word was: " + correctWord;
+            document.getElementById("guessInput").disabled = true;
+        }
+
+        // Clear input field for next guess
+        guessInput.value = "";
+        guessInput.focus();
+    }
+</script>
+
+</body>
+</html>
